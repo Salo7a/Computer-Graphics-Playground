@@ -8,7 +8,7 @@
 ### 1. The Full Body
 So this is our final body. We are going to divide it into three main parts; the legs, the arms, and the rest (trunk, chest, head). We are going to illustrate the implementation of each part and controlling some movements of these parts. 
 
-<center><img src="Images/Body/bodyShape.jpg" alt="image not found" width="300" height="300"></center>
+<center><img src="Images/Body/bodyShape.JPG" alt="image not found" width="300" height="300"></center>
 
 ### 2. Legs
 Each leg consists of a hip, a calf, and a foot.
@@ -346,22 +346,13 @@ The following table illustrates the movements for each part of the body and the 
 ### 6. Results
 Here are some result of our body.
 <p float="left">
-<<<<<<< HEAD
-<img src="Images/Body/screenShot1.jpg" alt="image not found" width="400" height="400"> 
-<img src="Images/Body/screenShot2.jpg" alt="image not found" width="400" height="400">
-<img src="Images/Body/screenShot3.jpg" alt="image not found" width="400" height="400">
-<img src="Images/Body/screenShot4.jpg" alt="image not found" width="400" height="400">
-<img src="Images/Body/screenShot5.jpg" alt="image not found" width="400" height="400">
-<img src="Images/Body/screenShot6.jpg" alt="image not found" width="400" height="400">
-<img src="Images/Body/screenShot7.jpg" alt="image not found" width="400" height="400">
+<img src="Images/Body/screenShot1.JPG" alt="image not found" width="400" height="400"> 
+<img src="Images/Body/screenShot2.JPG" alt="image not found" width="400" height="400">
+<img src="Images/Body/screenShot3.JPG" alt="image not found" width="400" height="400">
+<img src="Images/Body/screenShot4.JPG" alt="image not found" width="400" height="400">
+<img src="Images/Body/screenShot5.JPG" alt="image not found" width="400" height="400">
+<img src="Images/Body/screenShot6.JPG" alt="image not found" width="400" height="400">
+<img src="Images/Body/screenShot7.JPG" alt="image not found" width="400" height="400">
+
 </p>
-=======
-<img src="Images/screenShot1.jpg" alt="image not found" width="400" height="400"> 
-<img src="Images/screenShot2.jpg" alt="image not found" width="400" height="400">
-<img src="Images/screenShot3.jpg" alt="image not found" width="400" height="400">
-<img src="Images/screenShot4.jpg" alt="image not found" width="400" height="400">
-<img src="Images/screenShot5.jpg" alt="image not found" width="400" height="400">
-<img src="Images/screenShot6.jpg" alt="image not found" width="400" height="400">
-<img src="Images/screenShot7.jpg" alt="image not found" width="400" height="400">
-</p>
->>>>>>> 977bec6789331ff6b4b1352090da7e4de8c89f23
+
