@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.16)
+project(Graphics_Final_Project)
+
+set(CMAKE_CXX_STANDARD 17)
+
+include_directories(.)
+include_directories(Images)
+include_directories(Images/Body)
+include_directories(Images/floor_textures)
+include_directories(Images/graphs)
+# GLUT
+find_package(GLUT REQUIRED)
+include_directories(${GLUT_INCLUDE_DIR})
+if (NOT GLUT_FOUND)
+    message(ERROR "GLUT not found!")
+endif (NOT GLUT_FOUND)
+# OpenGL
+find_package(OpenGL REQUIRED)
+include_directories(${OpenGL_INCLUDE_DIRS})
+link_directories(${OpenGL_LIBRARY_DIRS})
+add_definitions(${OpenGL_DEFINITIONS})
+if (NOT OPENGL_FOUND)
+    message(ERROR "OPENGL not found!")
+endif (NOT OPENGL_FOUND)
+
+link_libraries(${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
+configure_file(Images/floor_textures/floorA.bmp ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(Images/floor_textures/floorB.bmp ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(Images/floor_textures/floorC.bmp ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(Images/floor_textures/floorD.bmp ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+add_executable(Graphics_Final_Project main.c  imageloader.cpp imageloader.h glm.cpp glm.h)
+
+add_executable(floor floor.cpp imageloader.cpp imageloader.h glm.cpp glm.h)
+add_executable(FloorOnly FloorOnly.cpp imageloader.cpp imageloader.h glm.cpp glm.h)

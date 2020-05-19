@@ -1,4 +1,4 @@
-#include <math.h>
+#include <cmath>
 #include <GL/glut.h>
 #include "glm.h"
 #include "imageloader.h"
@@ -104,19 +104,18 @@ void initRendering() {
 }
 void screen_menu(int value)
 {
-	char* name = 0;
+	char* name = nullptr;
 
 	switch (value) {
 	case 'a':
-		name = "Images/floor_textures/floorA.bmp";
+		name = "floorA.bmp";
 		break;
 	case 'b':
-		name = "Images/floor_textures/floorB.bmp";
+		name = "floorB.bmp";
 		break;
 	case 'c':
-		name = "Images/floor_textures/floorC.bmp";
+		name = "floorC.bmp";
 		break;
-	
 	}
 
 	if (name) {
