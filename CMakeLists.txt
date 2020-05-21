@@ -28,7 +28,9 @@ configure_file(Images/floor_textures/floorA.bmp ${CMAKE_CURRENT_BINARY_DIR} COPY
 configure_file(Images/floor_textures/floorB.bmp ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 configure_file(Images/floor_textures/floorC.bmp ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 configure_file(Images/floor_textures/floorD.bmp ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
-add_executable(Graphics_Final_Project main.c  imageloader.cpp imageloader.h glm.cpp glm.h)
+configure_file(Resources/Models/Sofa.mtl ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(Resources/Models/Sofa.obj ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
+add_executable(Graphics_Final_Project main.c  imageloader.cpp imageloader.h glm.cpp glm.h)
 add_executable(floor floor.cpp imageloader.cpp imageloader.h glm.cpp glm.h)
 add_executable(FloorOnly FloorOnly.cpp imageloader.cpp imageloader.h glm.cpp glm.h)

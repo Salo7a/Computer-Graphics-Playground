@@ -21,6 +21,8 @@ double eye[] = { 0, 0, 0 };
 double center[] = { 0, 0, -1 };
 double up[] = { 0, 1, 0 };
 
+GLMmodel* Sofa = glmReadOBJ("Sofa.obj");
+
 GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 0.0 };
 GLfloat light_diffuse[] = { 0.5, 0.5, 0.5,1.0 };
 GLfloat light_specular[] = {1.0, 1.0, 1.0, 1.0 };
@@ -45,6 +47,16 @@ GLuint _textureId; //The id of the texture
 GLuint _textureId1; //The id of the texture
 
 
+void DrawModel(GLMmodel* Object)
+{
+
+        if (!Object) exit(0);
+        glmUnitize(Object);
+        glmFacetNormals(Object);
+        glmVertexNormals(Object, 90.0);
+        glmScale(Object, .15);
+    glmDraw(Object, GLM_SMOOTH | GLM_MATERIAL);
+}
 
 void initRendering() {
     Image* image = loadBMP("floorA.bmp");
@@ -176,6 +188,10 @@ void display(void)
     glDisable(GL_TEXTURE_2D);
     glPopMatrix();
 
+    glPushMatrix();
+    glTranslatef(0.0, -0.2, -1);
+    DrawModel(Sofa);
+    glPopMatrix();
     glPopMatrix();
     glutSwapBuffers();
 }
