@@ -21,9 +21,9 @@ double eye[] = { 0, 0, 0 };
 double center[] = { 0, 0, -1 };
 double up[] = { 0, 1, 0 };
 
-GLMmodel* Sofa = glmReadOBJ("Sofa.obj");
+GLMmodel* Sofa = glmReadOBJ("soccerball.obj");
 
-GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 0.0 };
+GLfloat light_ambient[] = { 1.0, 0.0, 0.0, 0.0 };
 GLfloat light_diffuse[] = { 0.5, 0.5, 0.5,1.0 };
 GLfloat light_specular[] = {1.0, 1.0, 1.0, 1.0 };
 // x , y, z, w
@@ -54,7 +54,7 @@ void DrawModel(GLMmodel* Object)
         glmUnitize(Object);
         glmFacetNormals(Object);
         glmVertexNormals(Object, 90.0);
-        glmScale(Object, .15);
+        glmScale(Object, .5);
     glmDraw(Object, GLM_SMOOTH | GLM_MATERIAL);
 }
 
@@ -189,7 +189,7 @@ void display(void)
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(0.0, -0.2, -1);
+    glTranslatef(0.0, -0.0, -1);
     DrawModel(Sofa);
     glPopMatrix();
     glPopMatrix();
