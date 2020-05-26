@@ -29,7 +29,7 @@ char fortniteAnimation = 0;
 char fortniteFlage = 0;
 char helloFlag = 0;
 int BallX = -0.3;
-int BallY = -0.1;
+int BallY = -1.5;
 int BallZ =0;
 int moving, startx, starty;
 
@@ -69,7 +69,7 @@ void timer(int);
 void init(void)
 {
 
-    gluPerspective(65.0, (GLfloat)1024 / (GLfloat)869, 1.0, 60.0);
+    gluPerspective(140.0, (GLfloat)1024 / (GLfloat)869, 1.0, 150.0);
     Image* image = loadBMP("floorA.bmp");
     _textureId = loadTexture(image);
     delete image;
@@ -159,7 +159,7 @@ void DrawModel(GLMmodel* Object)
     glmUnitize(Object);
     glmFacetNormals(Object);
     glmVertexNormals(Object, 90.0);
-    glmScale(Object, .4);
+    glmScale(Object, .25);
     glmDraw(Object, GLM_SMOOTH | GLM_MATERIAL);
 }
 
@@ -192,13 +192,13 @@ void display(void)
     glBegin(GL_QUADS);
     glNormal3f(0.0,-1.0,0.0);
     glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(-1.5,-0.25,2);
+    glVertex3f(-25,-2.25,25);
     glTexCoord2f(5.0f,  0.0f);
-    glVertex3f(1.5,-0.25,2);
+    glVertex3f(25,-2.25,25);
     glTexCoord2f(5.0f,  20.0f);
-    glVertex3f(1.5,-0.25,-2);
+    glVertex3f(25,-2.25,-25);
     glTexCoord2f(0.0f, 20.0f);
-    glVertex3f(-1.5,-0.25,-2);
+    glVertex3f(-25,-2.25,-25);
     glEnd();
     glDisable(GL_TEXTURE_2D);
     glPopMatrix();
