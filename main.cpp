@@ -28,10 +28,12 @@ char helloAnimation = 0;
 char fortniteAnimation = 0;
 char fortniteFlage = 0;
 char helloFlag = 0;
-int BallX = -0.3;
-int BallY = -1.5;
-int BallZ =0;
+float BallX = 0;
+float BallY = -2;
+float BallZ = 1.2;
+int ballCtr = 0;
 int moving, startx, starty;
+char ballAnimation = 0;
 
 
 GLMmodel* Soccerball = glmReadOBJ("soccerball.obj");
@@ -159,7 +161,7 @@ void DrawModel(GLMmodel* Object)
     glmUnitize(Object);
     glmFacetNormals(Object);
     glmVertexNormals(Object, 90.0);
-    glmScale(Object, .25);
+    glmScale(Object, .3);
     glmDraw(Object, GLM_SMOOTH | GLM_MATERIAL);
 }
 
@@ -181,6 +183,24 @@ void display(void)
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
     glPushMatrix();
+
+
+
+
+
+
+
+
+
+    gluLookAt(eye[0], eye[1], eye[2],
+              center[0], center[1], center[2],
+              up[0], up[1], up[2]);
+
+
+    glRotatef(angle2, 1.0, 0.0, 0.0);
+    glRotatef(angle, 0.0, 1.0, 0.0);
+
+
     //floor
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
@@ -204,26 +224,12 @@ void display(void)
     glPopMatrix();
 
 
-
-
     glPushMatrix();
     glTranslatef(BallX, BallY, BallZ);
     DrawModel(Soccerball);
     glPopMatrix();
 
-
-
     glEnable(GL_COLOR_MATERIAL);
-
-    gluLookAt(eye[0], eye[1], eye[2],
-              center[0], center[1], center[2],
-              up[0], up[1], up[2]);
-
-
-    glRotatef(angle2, 1.0, 0.0, 0.0);
-    glRotatef(angle, 0.0, 1.0, 0.0);
-
-
 
     // START OF RIGHT LEG
     glPushMatrix();
@@ -1004,14 +1010,14 @@ void keyboard(unsigned char key, int x, int y)
             break;
 
         case 's':
-            if (knee[1] >= -30) {
+            if (knee[1] >= -80) {
                 knee[1] = (knee[1] - 5) % 360;
                 glutPostRedisplay();
             }
             break;
 
         case 'S':
-            if (knee[1] <= 30) {
+            if (knee[1] <= 80) {
                 knee[1] = (knee[1] + 5) % 360;
                 glutPostRedisplay();
             }
@@ -1162,6 +1168,7 @@ void keyboard(unsigned char key, int x, int y)
             break;
 
         case 'p':
+            ballAnimation = 0;
             if(helloAnimation)
             {
                 arm[0] = 0;
@@ -1182,6 +1189,15 @@ void keyboard(unsigned char key, int x, int y)
                 elbow[1] = 0;
                 glutPostRedisplay();
 
+            }
+            else if(ballAnimation==1)
+            {
+                ballAnimation=0;
+                legX[0] = 0;
+                legX[1] = 0;
+                BallX = 0;
+                BallY = -2;
+                glutPostRedisplay();
             }
             else {
                 fortniteAnimation = 1;
@@ -1230,6 +1246,15 @@ void keyboard(unsigned char key, int x, int y)
                 glutPostRedisplay();
 
             }
+            else if(ballAnimation==1)
+            {
+                ballAnimation=0;
+                legX[0] = 0;
+                legX[1] = 0;
+                BallX = 0;
+                BallY = -2;
+                glutPostRedisplay();
+            }
             else {
                 trainingAnimation = 0;
                 helloAnimation = 1;
@@ -1271,6 +1296,7 @@ void keyboard(unsigned char key, int x, int y)
             break;
 
         case '.':
+            ballAnimation = 0;
             wavingCtr = 0;
             if(fortniteAnimation)
             {
@@ -1289,6 +1315,15 @@ void keyboard(unsigned char key, int x, int y)
                 arm[0] = 0;
                 arm[1] = 0;
                 elbow[1] = 0;
+                glutPostRedisplay();
+            }
+            else if(ballAnimation==1)
+            {
+                ballAnimation=0;
+                legX[0] = 0;
+                legX[1] = 0;
+                BallX = 0;
+                BallY = -2;
                 glutPostRedisplay();
             }
             else {
@@ -1312,6 +1347,61 @@ void keyboard(unsigned char key, int x, int y)
             }
             break;
 
+        case 'y':
+            if(fortniteAnimation)
+            {
+                fortniteAnimation = 0;
+                arm[1] = 0;
+                arm[0] = 0;
+                elbow[1] = 0;
+                elbow[0] = 0;
+                legZ[0] = 0;
+                legZ[1] = 0;
+                glutPostRedisplay();
+            }
+            else if(helloAnimation)
+            {
+                helloAnimation = 0;
+                arm[0] = 0;
+                arm[1] = 0;
+                elbow[1] = 0;
+                glutPostRedisplay();
+            }
+            else if (trainingAnimation){
+                trainingAnimation = 0;
+                armZ[0] = 0;
+                armZ[1] = 0;
+                arm[0] = 0;
+                arm[1] = 0;
+                elbow[0] = 0;
+                elbow[1] = 0;
+                glutPostRedisplay();
+            }
+            ballCtr = 0;
+
+            if(ballAnimation == 0)
+            {
+                ballAnimation = 1;
+                arm[1] = 50;
+                arm[0] = -50;
+                legX[1] = -32;
+                legX[0] = 0;
+                BallX = -0.4;
+                BallY = -1.2;
+                glutTimerFunc(0, timer, 10);
+            }
+            else if(ballAnimation==1)
+            {
+                ballAnimation=0;
+                arm[1] = 0;
+                arm[0] = 0;
+                legX[0] = 0;
+                legX[1] = 0;
+                BallX = 0;
+                BallY = -2;
+                glutPostRedisplay();
+            }
+            break;
 
         case 27:
             exit(0);
@@ -1352,103 +1442,139 @@ static void motion(int x, int y)
 
 void timer(int value)
 {
-    if(fortniteAnimation) {
-        if (fortniteFlage) {
+    if(value!=10) {
+        if (fortniteAnimation) {
+            if (fortniteFlage) {
+                if (value == 1) {
+                    legZ[0] += 6;
+                    glutPostRedisplay();
+                    wavingCtr++;
+                    if (wavingCtr < 10) {
+                        glutTimerFunc(20, timer, 1);
+                    } else {
+                        wavingCtr = 0;
+                        glutTimerFunc(20, timer, -1);
+                    }
+                } else if (value == -1) {
+                    legZ[0] -= 6;
+                    glutPostRedisplay();
+                    wavingCtr++;
+                    if (wavingCtr < 10) {
+                        glutTimerFunc(20, timer, -1);
+                    } else {
+                        wavingCtr = 0;
+                        glutTimerFunc(20, timer, 2);
+                    }
+                } else if (value == 2) {
+                    legZ[1] -= 6;
+                    glutPostRedisplay();
+                    wavingCtr++;
+                    if (wavingCtr < 10) {
+                        glutTimerFunc(20, timer, 2);
+                    } else {
+                        wavingCtr = 0;
+                        glutTimerFunc(20, timer, -2);
+                    }
+                } else if (value == -2) {
+                    legZ[1] += 6;
+                    glutPostRedisplay();
+                    wavingCtr++;
+                    if (wavingCtr < 10) {
+                        glutTimerFunc(20, timer, -2);
+                    } else {
+                        wavingCtr = 0;
+                        glutTimerFunc(20, timer, 1);
+                    }
+                }
+            }
+        } else if (trainingAnimation) {
             if (value == 1) {
-                legZ[0] += 6;
+                arm[0] += 1;
+                arm[1] -= 1;
                 glutPostRedisplay();
                 wavingCtr++;
-                if (wavingCtr < 10) {
-                    glutTimerFunc(20, timer, 1);
+                if (wavingCtr < 50) {
+                    glutTimerFunc(10, timer, 1);
                 } else {
                     wavingCtr = 0;
-                    glutTimerFunc(20, timer, -1);
+                    glutTimerFunc(10, timer, -1);
                 }
             } else if (value == -1) {
-                legZ[0] -= 6;
+                arm[0] -= 1;
+                arm[1] += 1;
                 glutPostRedisplay();
                 wavingCtr++;
-                if (wavingCtr < 10) {
-                    glutTimerFunc(20, timer, -1);
+                if (wavingCtr < 50) {
+                    glutTimerFunc(10, timer, -1);
                 } else {
                     wavingCtr = 0;
-                    glutTimerFunc(20, timer, 2);
+                    glutTimerFunc(10, timer, 1);
                 }
-            } else if (value == 2) {
-                legZ[1] -= 6;
-                glutPostRedisplay();
-                wavingCtr++;
-                if (wavingCtr < 10) {
-                    glutTimerFunc(20, timer, 2);
-                } else {
-                    wavingCtr = 0;
-                    glutTimerFunc(20, timer, -2);
-                }
-            } else if (value == -2) {
-                legZ[1] += 6;
-                glutPostRedisplay();
-                wavingCtr++;
-                if (wavingCtr < 10) {
-                    glutTimerFunc(20, timer, -2);
-                } else {
-                    wavingCtr = 0;
-                    glutTimerFunc(20, timer, 1);
+            }
+        }
+
+
+        if (helloAnimation) {
+            if (helloFlag) {
+                if (value == 1) {
+                    elbow[1] -= 2;
+                    glutPostRedisplay();
+                    wavingCtr++;
+                    if (wavingCtr < 20) {
+                        glutTimerFunc(20, timer, 1);
+                    } else {
+                        wavingCtr = 0;
+                        glutTimerFunc(20, timer, -1);
+                    }
+                } else if (value == -1) {
+                    elbow[1] += 2;
+                    glutPostRedisplay();
+                    wavingCtr++;
+                    if (wavingCtr < 20) {
+                        glutTimerFunc(20, timer, -1);
+                    } else {
+                        wavingCtr = 0;
+                        glutTimerFunc(20, timer, 1);
+                    }
                 }
             }
         }
     }
-
-    else if (trainingAnimation) {
-        if (value == 1) {
-            arm[0] += 1;
-            arm[1] -= 1;
-            glutPostRedisplay();
-            wavingCtr++;
-            if (wavingCtr < 50) {
-                glutTimerFunc(10, timer, 1);
-            } else {
-                wavingCtr = 0;
-                glutTimerFunc(10, timer, -1);
-            }
-        } else if (value == -1) {
-            arm[0] -= 1;
-            arm[1] += 1;
-            glutPostRedisplay();
-            wavingCtr++;
-            if (wavingCtr < 50) {
-                glutTimerFunc(10, timer, -1);
-            } else {
-                wavingCtr = 0;
-                glutTimerFunc(10, timer, 1);
-            }
+    else if (value==10 && ballAnimation==1)
+    {
+        if(ballCtr<8)
+        {
+            BallX += 0.05;
+            legX[1] += 4;
+            BallY += 0.15;
+            ballCtr++;
         }
-    }
-
-
-    if(helloAnimation) {
-        if (helloFlag) {
-            if (value == 1) {
-                elbow[1] -= 2;
-                glutPostRedisplay();
-                wavingCtr++;
-                if (wavingCtr < 20) {
-                    glutTimerFunc(20, timer, 1);
-                } else {
-                    wavingCtr = 0;
-                    glutTimerFunc(20, timer, -1);
-                }
-            } else if (value == -1) {
-                elbow[1] += 2;
-                glutPostRedisplay();
-                wavingCtr++;
-                if (wavingCtr < 20) {
-                    glutTimerFunc(20, timer, -1);
-                } else {
-                    wavingCtr = 0;
-                    glutTimerFunc(20, timer, 1);
-                }
-            }
+        else if (ballCtr<16)
+        {
+            BallX += 0.05;
+            legX[0] -= 4;
+            BallY -= 0.15;
+            ballCtr++;
         }
+        else if (ballCtr<24)
+        {
+            BallX -= 0.05;
+            legX[0] += 4;
+            BallY += 0.15;
+            ballCtr++;
+        }
+        else if (ballCtr<32)
+        {
+            BallX -= 0.05;
+            legX[1] -= 4;
+            BallY -= 0.15;
+            ballCtr++;
+        }
+        else if(ballCtr==32) ballCtr = 0;
+        glutTimerFunc(40, timer, 10);
+        glutPostRedisplay();
+
+
     }
 }
 
