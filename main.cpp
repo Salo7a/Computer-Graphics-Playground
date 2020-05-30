@@ -37,6 +37,7 @@ char ballAnimation = 0;
 
 
 GLMmodel* Soccerball = glmReadOBJ("soccerball.obj");
+GLMmodel* Tree = glmReadOBJ("rose+vase.obj");
 GLuint loadTexture(Image* image) {
     GLuint textureId;
     glGenTextures(1, &textureId); //Make room for our texture
@@ -45,11 +46,10 @@ GLuint loadTexture(Image* image) {
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->width, image->height, 0, GL_RGB, GL_UNSIGNED_BYTE, image->pixels);               //The actual pixel data
     return textureId; //Returns the id of the texture
 }
-// RGBA
-// Here we have a red light source
-GLfloat light_ambient[] = {1.0, 1.0, 1.0, 0.8};
+
+GLfloat light_ambient[] = {1.0, 1.0, 1.0, 0.5};
 // GLfloat light_diffuse[] = {0.9, 0, 0.6, 0.8};
-GLfloat light_diffuse[] = { 0.5, 0.5, 0.5,1.0 };
+GLfloat light_diffuse[] = { 0.5, 0.5, 0.5,0.6 };
 GLfloat light_specular[] = {0.7, 1.0, 1.0, 0.8};
 // This is the light position
 float light_position[] = {2.0, 2, -1.0, 1.0};
@@ -58,7 +58,7 @@ GLfloat lightPos1[] = {-0.5,-3.0,-2.0, 1.0 };
 // Material Properties
 GLfloat mat_amb_diff[] = {0.9921825, 0.46568, 0.48004, 1.0 };
 GLfloat mat_specular[] = { 0.06, 0.09, 0.04, 1.0 };
-GLfloat shininess[] = {75.0};
+GLfloat shininess[] = {30.0};
 
 GLfloat angle = 0.0;   /* in degrees */
 GLfloat angle2 = 0.0;   /* in degrees */
@@ -72,7 +72,7 @@ void init(void)
 {
 
     gluPerspective(140.0, (GLfloat)1024 / (GLfloat)869, 1.0, 150.0);
-    Image* image = loadBMP("floorA.bmp");
+    Image* image = loadBMP("floorE.bmp");
     _textureId = loadTexture(image);
     delete image;
     // Turn on the power
@@ -118,6 +118,9 @@ void screen_menu(int value)
         case 'd':
             name = "floorD.bmp";
             break;
+        case 'e':
+            name = "floorE.bmp";
+            break;
 
     }
 
@@ -154,15 +157,16 @@ void screen_menu(int value)
 
     glutPostRedisplay();
 }
-void DrawModel(GLMmodel* Object)
+void DrawModel(GLMmodel* Object, GLfloat Scale, GLfloat Angle)
 {
 
     if (!Object) exit(0);
     glmUnitize(Object);
     glmFacetNormals(Object);
-    glmVertexNormals(Object, 90.0);
-    glmScale(Object, .3);
-    glmDraw(Object, GLM_SMOOTH | GLM_MATERIAL);
+    glmVertexNormals(Object, Angle);
+    glmScale(Object, Scale);
+    glmDraw(Object, GLM_SMOOTH|GLM_MATERIAL);
+//    glmDraw(Object, GLM_SMOOTH|GLM_MATERIAL);
 }
 
 void display(void)
@@ -226,9 +230,12 @@ void display(void)
 
     glPushMatrix();
     glTranslatef(BallX, BallY, BallZ);
-    DrawModel(Soccerball);
+    DrawModel(Soccerball, 0.3, 90);
     glPopMatrix();
-
+    glPushMatrix();
+    glTranslatef(4, -2.8, -3);
+    DrawModel(Tree, 5, 0);
+    glPopMatrix();
     glEnable(GL_COLOR_MATERIAL);
 
     // START OF RIGHT LEG
@@ -309,7 +316,7 @@ void display(void)
     glPushMatrix();
     glTranslatef(0.0, 0.25, 0.0);
     glScalef(1.5, 0.5, 0.5);
-    glColor3f(1.0, 1.0, 1.0);
+    glColor3f(0.9, 1.0, 1.0);
     glutSolidCube(1.0);
     glPopMatrix();
     // END OF TRUNK
@@ -1585,8 +1592,8 @@ int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(1000, 1000);
-    glutInitWindowPosition(100, 100);
+    glutInitWindowSize(1000, 700);
+    glutInitWindowPosition(100, 0);
     glutCreateWindow("ROOM");
     init();
     glutMouseFunc(mouse);
@@ -1603,6 +1610,7 @@ int main(int argc, char **argv)
     glutAddMenuEntry("floor_2", 'b');
     glutAddMenuEntry("floor_3", 'c');
     glutAddMenuEntry("floor_4", 'd');
+    glutAddMenuEntry("Grass", 'e');
     glutAttachMenu(GLUT_RIGHT_BUTTON);
     glutMainLoop();
     return 0;

@@ -21,7 +21,7 @@ double eye[] = { 0, 0, 0 };
 double center[] = { 0, 0, -1 };
 double up[] = { 0, 1, 0 };
 
-GLMmodel* Sofa = glmReadOBJ("soccerball.obj");
+GLMmodel* Sofa = glmReadOBJ("trees.obj");
 
 GLfloat light_ambient[] = { 1.0, 0.0, 0.0, 0.0 };
 GLfloat light_diffuse[] = { 0.5, 0.5, 0.5,1.0 };
@@ -55,7 +55,7 @@ void DrawModel(GLMmodel* Object)
         glmFacetNormals(Object);
         glmVertexNormals(Object, 90.0);
         glmScale(Object, .5);
-    glmDraw(Object, GLM_SMOOTH | GLM_MATERIAL);
+    glmDraw(Object, GLM_SMOOTH|GLM_TEXTURE | GLM_MATERIAL);
 }
 
 void initRendering() {
