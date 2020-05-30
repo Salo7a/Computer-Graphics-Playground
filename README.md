@@ -356,3 +356,18 @@ Here are some result of our body.
 
 </p>
 
+### 7. Objects
+Wavefront Object Models are loaded using the glm library, The DrawModel Function Takes a GLMmodel and it's scale to draw the object, the DrawModel Function is given bellow
+
+```cpp
+void DrawModel(GLMmodel* Object, GLfloat Scale)
+{
+
+    if (!Object) exit(0);
+    glmUnitize(Object);
+    glmFacetNormals(Object);
+    glmVertexNormals(Object, 90.0);
+    glmScale(Object, Scale);
+    glmDraw(Object, GLM_SMOOTH|GLM_TEXTURE|GLM_MATERIAL);
+}
+```
