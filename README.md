@@ -1,4 +1,4 @@
-# SBE306B - Assignment 2 - Full Body Movement
+# Full Body Movement
 **Under the supervision of: [Eng. Ayman Anwar](https://github.com/A-M-Anwar) and [Eng. Eslam Adel](https://github.com/EslamAdel)**
 
 ##### Imortant Notes:
